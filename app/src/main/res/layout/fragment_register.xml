@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RegisterFragment">
+    tools:context=".view.RegisterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -80,7 +81,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="360dp"
+            android:layout_height="380dp"
             android:background="#FFFF"
             android:padding="16dp">
 
@@ -92,7 +93,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="     Nombre:"
+                android:hint="Nombre:"
                 app:layout_constraintTop_toTopOf="parent"
                 app:startIconDrawable="@drawable/baseline_person_24"
                 tools:layout_editor_absoluteX="16dp">
@@ -104,22 +105,24 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-
                 android:id="@+id/correo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="     Correo:"
+                android:inputType="text"
 
                 app:layout_constraintTop_toBottomOf="@id/nombre"
                 app:startIconDrawable="@drawable/baseline_email_24"
                 tools:layout_editor_absoluteX="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:hint="Correo:"
+                    android:inputType="textEmailAddress"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,15 +133,16 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:hint="     Contraseña:"
 
                 app:endIconMode="password_toggle"
                 app:layout_constraintTop_toBottomOf="@id/correo"
                 app:startIconDrawable="@drawable/baseline_https_24">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordTIET"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Contraseña:"
                     android:inputType="textPassword" />
             </com.google.android.material.textfield.TextInputLayout>
 
