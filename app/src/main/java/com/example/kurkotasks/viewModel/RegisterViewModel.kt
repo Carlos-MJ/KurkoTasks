@@ -16,10 +16,10 @@ class RegisterViewModel: ViewModel(){
     private val firebase = FirebaseAuth.getInstance()
 
     fun requestSignUp(email: String, password: String) {
-        _loaderState.value = true
+        _loaderState.value = false
         viewModelScope.launch {
             val result = firebase.createUserWithEmailAndPassword(email, password).await()
-            _loaderState.value = false
+            _loaderState.value = true
             result.user?.let {
                 Log.i("Firebase", "Se ha generado su usuario")
             } ?: run {

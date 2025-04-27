@@ -28,6 +28,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        communicator = requireActivity() as MainActivity
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
