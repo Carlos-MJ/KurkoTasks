@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "453372957868",
+    "project_id": "kurkotasks",
+    "storage_bucket": "kurkotasks.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453372957868:android:106677b2ca6779d64e7b09",
+        "android_client_info": {
+          "package_name": "com.example.kurkotasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC15A6UuCxlArOKnIfZYxsWCxmnsFn51v8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

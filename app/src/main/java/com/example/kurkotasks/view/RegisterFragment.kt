@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentRegisterBinding
-
 import com.example.kurkotasks.utils.FragmentCommunicator
 
 /**
