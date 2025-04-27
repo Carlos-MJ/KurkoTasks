@@ -12,17 +12,14 @@ import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentRegisterBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
+import com.example.kurkotasks.viewModel.RegisterViewModel
 
-/**
- * A simple [Fragment] subclass.
- * Use the [RegisterFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class RegisterFragment : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private var _binding: FragmentRegisterBinding? = null
     private val binding get() = _binding!!
-
+    private val viewModel by viewModels<RegisterViewModel>()
     var isValid: Boolean = false
     private lateinit var communicator: FragmentCommunicator
 
@@ -30,7 +27,6 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
@@ -38,7 +34,16 @@ class RegisterFragment : Fragment() {
 
     private fun setupView() {
         binding.flecha.setOnClickListener {
+            viewModel.requestSignUp(binding.email.text.toString(),
+                binding.passwordTIET.text.toString())
             findNavController().navigate(R.id.action_registerFragment2_to_loginFragment2)
+        }
+        setupObservers()
+    }
+
+    private fun setupObservers() {
+        viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
+            communicator.showLoader(loaderState)
         }
     }
 
