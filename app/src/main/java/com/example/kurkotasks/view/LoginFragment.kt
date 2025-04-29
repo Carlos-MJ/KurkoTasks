@@ -30,6 +30,7 @@ class LoginFragment : Fragment() {
     ): View? {
         communicator = requireActivity() as MainActivity
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        setupObservers()
         setupView()
         return binding.root
     }
@@ -39,13 +40,15 @@ class LoginFragment : Fragment() {
         binding.register.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
         }
+
         binding.btnBoton.setOnClickListener {
-            if (isValid) {
+            if (validateInputs()) {
                 requestLogin()
             } else {
-                Toast.makeText(activity, "Inicio de sesión invalido", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Correo y contraseña son obligatorios", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.email.addTextChangedListener {
 
             if (binding.email.text.toString().isEmpty()) {
@@ -64,6 +67,19 @@ class LoginFragment : Fragment() {
                 isValid = true
             }
         }
+        setupObservers()
+    }
+
+    private fun validateInputs(): Boolean {
+        val emailNotEmpty = binding.email.text.toString().isNotEmpty()
+        val passwordNotEmpty = binding.passwordTIET.text.toString().isNotEmpty()
+
+        isValid = emailNotEmpty && passwordNotEmpty
+
+        binding.correo.error = if (!emailNotEmpty) "Introduce un correo" else null
+        binding.password.error = if (!passwordNotEmpty) "Introduce tu contraseña" else null
+
+        return isValid
     }
 
     private fun setupObservers() {
@@ -72,9 +88,7 @@ class LoginFragment : Fragment() {
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
             if (validSession) {
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+                findNavController().navigate(R.id.action_loginFragment2_to_firstFragment)
             } else {
                 Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }
