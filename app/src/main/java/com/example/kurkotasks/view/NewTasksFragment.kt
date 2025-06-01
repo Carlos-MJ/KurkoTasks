@@ -11,7 +11,7 @@ import com.example.kurkotasks.databinding.FragmentNewTasksBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
 
 
-class SecondFragment : Fragment() {
+class NewTasksFragment : Fragment() {
 
     private var _binding: FragmentNewTasksBinding? = null
     private val binding get() = _binding!!
@@ -30,7 +30,7 @@ class SecondFragment : Fragment() {
 
     private fun setupView(){
         binding.imageIconFlecha.setOnClickListener {
-            findNavController().navigate(R.id.action_secondFragment_to_firstFragment)
+            findNavController().navigate(R.id.action_newTasksFragment_to_pendingTaskFragment)
         }
     }
 

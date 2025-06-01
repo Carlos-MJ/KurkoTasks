@@ -35,6 +35,7 @@ class RegisterFragment : Fragment() {
 
     private fun setupView() {
             binding.flecha.setOnClickListener {
+
                 viewModel.requestSignUp(binding.email.text.toString(),
                     binding.passwordTIET.text.toString())
                 findNavController().navigate(R.id.action_registerFragment2_to_loginFragment2)
@@ -43,7 +44,7 @@ class RegisterFragment : Fragment() {
         binding.btnBoton.setOnClickListener {
         val email = binding.email.text.toString().trim()
         val password = binding.passwordTIET.text.toString().trim()
-        val name = binding.nombreTIET.text.toString().trim()
+            val name = binding.nombreTIET.text.toString().trim()
 
             if (name.isEmpty()) {
                 binding.nombreTIET.error = "El nombre es obligatorio"

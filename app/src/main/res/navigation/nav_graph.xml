@@ -13,8 +13,8 @@
             android:id="@+id/action_loginFragment2_to_registerFragment2"
             app:destination="@id/registerFragment2" />
         <action
-            android:id="@+id/action_loginFragment2_to_firstFragment"
-            app:destination="@id/firstFragment" />
+            android:id="@+id/action_loginFragment2_to_pendingTaskFragment"
+            app:destination="@id/pendingTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -26,21 +26,21 @@
             app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/firstFragment"
-        android:name="com.example.kurkotasks.view.FirstFragment"
-        android:label="fragment_pending_tasks"
-        tools:layout="@layout/fragment_pending_tasks" >
-        <action
-            android:id="@+id/action_firstFragment_to_secondFragment"
-            app:destination="@id/secondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/secondFragment"
-        android:name="com.example.kurkotasks.view.SecondFragment"
+        android:id="@+id/newTasksFragment"
+        android:name="com.example.kurkotasks.view.NewTasksFragment"
         android:label="fragment_new_tasks"
         tools:layout="@layout/fragment_new_tasks" >
         <action
-            android:id="@+id/action_secondFragment_to_firstFragment"
-            app:destination="@id/firstFragment" />
+            android:id="@+id/action_newTasksFragment_to_pendingTaskFragment"
+            app:destination="@id/pendingTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pendingTaskFragment"
+        android:name="com.example.kurkotasks.view.PendingTaskFragment"
+        android:label="fragment_pending_tasks"
+        tools:layout="@layout/fragment_pending_tasks" >
+        <action
+            android:id="@+id/action_pendingTaskFragment_to_newTasksFragment"
+            app:destination="@id/newTasksFragment" />
     </fragment>
 </navigation>
