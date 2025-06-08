@@ -26,22 +26,28 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.loginFragment2) {
+            if (!isUserLoggedIn() || destination.id == R.id.loginFragment2 || destination.id == R.id.registerFragment2) {
                 navView.visibility = View.GONE
             } else {
                 navView.visibility = View.VISIBLE
             }
         }
-
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.registerFragment2) {
-                navView.visibility = View.GONE
-            } else {
-                navView.visibility = View.VISIBLE
-            }
-        }
-
+        loginSuccess()
     }
+
+    private fun isUserLoggedIn(): Boolean {
+        val sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        return sharedPreferences.getBoolean("isLoggedIn", false)
+    }
+
+    fun loginSuccess() {
+        val sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putBoolean("isLoggedIn", true)
+            apply()
+        }
+    }
+
 
     override fun showLoader(value: Boolean) {
         binding.loader.visibility = if (value) View.VISIBLE else View.GONE
