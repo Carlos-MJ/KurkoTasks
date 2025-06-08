@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view.viewModel
+package com.example.kurkotasks.view.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,14 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.kurkotasks.R
-import com.example.kurkotasks.databinding.FragmentPendingTasksBinding
+import com.example.kurkotasks.databinding.FragmentNewTasksBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
-import com.example.kurkotasks.view.home.MainActivity
 
 
-class PendingTaskFragment : Fragment() {
+class NewTasksFragment : Fragment() {
 
-    private var _binding: FragmentPendingTasksBinding? = null
+    private var _binding: FragmentNewTasksBinding? = null
     private val binding get() = _binding!!
     private lateinit var communicator: FragmentCommunicator
 
@@ -23,14 +22,15 @@ class PendingTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         communicator = requireActivity() as MainActivity
-        _binding = FragmentPendingTasksBinding.inflate(inflater, container, false)
+        _binding = FragmentNewTasksBinding.inflate(inflater, container, false)
         setupView()
         return binding.root
+
     }
 
     private fun setupView(){
-        binding.iconAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_pendingTaskFragment_to_newTasksFragment)
+        binding.imageIconFlecha.setOnClickListener {
+            findNavController().navigate(R.id.action_newTasksFragment_to_pendingTaskFragment)
         }
     }
 

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".core.KurkoTasks"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -13,18 +14,24 @@
         android:theme="@style/Theme.KurkoTasks"
         tools:targetApi="31">
         <activity
-            android:name=".view.ListActivity"
+            android:name=".view.home.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.KurkoTasks" />
+        <activity
+            android:name=".view.home.ListActivity"
             android:exported="false"
             android:theme="@style/Theme.KurkoTasks" />
         <activity
-            android:name=".view.home.MainActivity"
-            android:exported="true">
+            android:name=".view.onboarding.OnboardingActivity"
+            android:exported="true"
+            android:theme="@style/Theme.KurkoTasks">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

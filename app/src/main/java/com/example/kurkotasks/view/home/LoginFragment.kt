@@ -1,6 +1,8 @@
-package com.example.kurkotasks.view
+package com.example.kurkotasks.view.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,7 @@ import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentLoginBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
-import com.example.kurkotasks.view.home.MainActivity
+import com.example.kurkotasks.view.onboarding.OnboardingActivity
 import com.example.kurkotasks.viewModel.LoginViewModel
 
 
@@ -27,9 +29,9 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        communicator = requireActivity() as MainActivity
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as OnboardingActivity
         setupObservers()
         setupView()
         return binding.root
@@ -38,7 +40,7 @@ class LoginFragment : Fragment() {
     private fun setupView() {
 
         binding.register.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment2_to_registerFragment2)
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
         }
 
         binding.btnBoton.setOnClickListener {
@@ -88,7 +90,9 @@ class LoginFragment : Fragment() {
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
             if (validSession) {
-                findNavController().navigate(R.id.action_loginFragment2_to_pendingTaskFragment)
+                val intent = Intent(requireActivity(), MainActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()
             } else {
                 Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }

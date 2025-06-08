@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view.viewModel
+package com.example.kurkotasks.view.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         navView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (!isUserLoggedIn() || destination.id == R.id.loginFragment2 || destination.id == R.id.registerFragment2) {
+            if (!isUserLoggedIn() || destination.id == R.id.loginFragment || destination.id == R.id.registerFragment) {
                 navView.visibility = View.GONE
             } else {
                 navView.visibility = View.VISIBLE

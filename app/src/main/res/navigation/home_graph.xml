@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_graph"
+    app:startDestination="@id/navigation_home">
+    <fragment
+        android:id="@+id/navigation_addtasks"
+        android:name="com.example.kurkotasks.view.home.NewTasksFragment"
+        android:label="@string/addtask_fragment"
+        tools:layout="@layout/fragment_new_tasks" >
+        <action
+            android:id="@+id/action_newTasksFragment_to_pendingTaskFragment"
+            app:destination="@id/navigation_home" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.example.kurkotasks.view.home.PendingTaskFragment"
+        android:label="@string/home_fragment"
+        tools:layout="@layout/fragment_pending_tasks" >
+        <action
+            android:id="@+id/action_pendingTaskFragment_to_newTasksFragment"
+            app:destination="@id/navigation_addtasks" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.kurkotasks.view.home.ProfileFragment"
+        android:label="@string/profile_fragment"
+        tools:layout="@layout/fragment_profile" />
+</navigation>

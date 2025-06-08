@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view
+package com.example.kurkotasks.view.home
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar

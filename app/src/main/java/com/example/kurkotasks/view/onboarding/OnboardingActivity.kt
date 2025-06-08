@@ -1,0 +1,27 @@
+package com.example.kurkotasks.view.onboarding
+
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import com.example.kurkotasks.R
+import com.example.kurkotasks.databinding.ActivityOnboardingBinding
+import com.example.kurkotasks.utils.FragmentCommunicator
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class OnboardingActivity : AppCompatActivity(), FragmentCommunicator {
+
+    private lateinit var binding: ActivityOnboardingBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_onboarding)
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+    }
+
+    override fun showLoader(value: Boolean) {
+        binding.loaderContainerView.visibility = if (value) View.VISIBLE else View.GONE
+    }
+}
