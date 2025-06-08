@@ -1,6 +1,5 @@
 package com.example.kurkotasks.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentLoginBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
+import com.example.kurkotasks.view.home.MainActivity
 import com.example.kurkotasks.viewModel.LoginViewModel
 
 
@@ -88,7 +88,7 @@ class LoginFragment : Fragment() {
         }
         viewModel.sessionValid.observe(viewLifecycleOwner) { validSession ->
             if (validSession) {
-                findNavController().navigate(R.id.action_loginFragment2_to_firstFragment)
+                findNavController().navigate(R.id.action_loginFragment2_to_pendingTaskFragment)
             } else {
                 Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }

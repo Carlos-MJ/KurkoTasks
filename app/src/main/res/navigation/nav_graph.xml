@@ -14,7 +14,7 @@
             app:destination="@id/registerFragment2" />
         <action
             android:id="@+id/action_loginFragment2_to_pendingTaskFragment"
-            app:destination="@id/pendingTaskFragment" />
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment2"
@@ -26,21 +26,26 @@
             app:destination="@id/loginFragment2" />
     </fragment>
     <fragment
-        android:id="@+id/newTasksFragment"
-        android:name="com.example.kurkotasks.view.NewTasksFragment"
-        android:label="fragment_new_tasks"
+        android:id="@+id/avigation_addtasks"
+        android:name="com.example.kurkotasks.view.viewModel.NewTasksFragment"
+        android:label="@string/addtask_fragment"
         tools:layout="@layout/fragment_new_tasks" >
         <action
             android:id="@+id/action_newTasksFragment_to_pendingTaskFragment"
-            app:destination="@id/pendingTaskFragment" />
+            app:destination="@id/navigation_home" />
     </fragment>
     <fragment
-        android:id="@+id/pendingTaskFragment"
-        android:name="com.example.kurkotasks.view.PendingTaskFragment"
-        android:label="fragment_pending_tasks"
+        android:id="@+id/navigation_home"
+        android:name="com.example.kurkotasks.view.viewModel.PendingTaskFragment"
+        android:label="@string/home_fragment"
         tools:layout="@layout/fragment_pending_tasks" >
         <action
             android:id="@+id/action_pendingTaskFragment_to_newTasksFragment"
-            app:destination="@id/newTasksFragment" />
+            app:destination="@id/avigation_addtasks" />
     </fragment>
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.kurkotasks.view.home.ProfileFragment"
+        android:label="@string/profile_fragment"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

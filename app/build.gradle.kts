@@ -63,6 +63,11 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
 
+    // Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.gson)
+    implementation(libs.retrofit.converter)
+
     // Glide
     implementation(libs.glide)
 

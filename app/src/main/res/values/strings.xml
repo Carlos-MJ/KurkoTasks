@@ -2,6 +2,9 @@
     <string name="app_name">KurkoTasks</string>
     <string name="register_action">Registrarse</string>
     <string name="restore_password">Restablecer contraseña</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="addtask_fragment">Add Task Fragment</string>
+    <string name="home_fragment">Home Fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- Strings used for fragments for navigation -->

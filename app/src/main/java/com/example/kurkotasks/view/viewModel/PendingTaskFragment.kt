@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view
+package com.example.kurkotasks.view.viewModel
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentPendingTasksBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
+import com.example.kurkotasks.view.home.MainActivity
 
 
 class PendingTaskFragment : Fragment() {
