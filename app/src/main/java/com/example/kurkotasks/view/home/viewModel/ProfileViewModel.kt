@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kurkotasks.core.ResultWrapper
+import com.example.kurkotasks.core.safeCall
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.network.UserRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,6 +25,10 @@ class ProfileViewModel @Inject constructor(
     private val _userInfo = MutableLiveData<User>()
     val userInfo: LiveData<User>
         get() = _userInfo
+
+    private val _userDelete = MutableLiveData<Boolean>()
+    val userDelete: LiveData<Boolean>
+        get() = _userDelete
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
@@ -39,6 +46,32 @@ class ProfileViewModel @Inject constructor(
                     _loaderState.value = false
                     val errorMessage = result.exception.message?: "Error desconocido"
 
+                }
+            }
+        }
+    }
+
+    fun deleteUser(userId: String) {
+        _loaderState.value = true
+        viewModelScope.launch {
+            val user = FirebaseAuth.getInstance().currentUser
+            user?.let {
+                when (val result = repository.deleteUser(userId)) {
+                    is ResultWrapper.Success -> {
+                        user.delete()
+                            .addOnSuccessListener{
+                                _loaderState.value = false
+                                _userDelete.value = true
+                            }
+                            .addOnFailureListener{ exception ->
+                                _loaderState.value = false
+                                _errorMessage.value = exception.message ?: "Error al eliminar el usuario"
+                            }
+                    }
+                    is ResultWrapper.Error -> {
+                        _loaderState.value = false
+                        val errorMessage = result.exception.message ?: "Error desconocido"
+                    }
                 }
             }
         }

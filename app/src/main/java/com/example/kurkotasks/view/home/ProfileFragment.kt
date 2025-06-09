@@ -1,6 +1,8 @@
 package com.example.kurkotasks.view.home
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import com.example.kurkotasks.R
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.utils.FragmentCommunicator
 import com.example.kurkotasks.view.home.viewModel.ProfileViewModel
+import com.example.kurkotasks.view.onboarding.OnboardingActivity
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -39,6 +43,11 @@ class ProfileFragment : Fragment() {
     private fun setupView() {
         setupObservers()
         viewModel.getUserInfo()
+        binding.deleteButton.setOnClickListener {
+            viewModel.userInfo.value?.let { user ->
+                viewModel.deleteUser(user.id) // Aquí pasamos el ID del usuario
+            }
+        }
     }
 
     private fun setupObservers() {
@@ -48,7 +57,17 @@ class ProfileFragment : Fragment() {
         viewModel.loaderState.observe(viewLifecycleOwner) {loaderState ->
             communicator.showLoader(loaderState)
         }
+        viewModel.userDelete.observe(viewLifecycleOwner) { isDeleted ->
+            if (isDeleted) {
+                Log.d("Firestore", "Usuario eliminado exitosamente")
+                val intent = Intent(requireContext(), OnboardingActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+
+            }
+        }
     }
+
 
     private fun updateUI(user: User){
         binding?.apply {
