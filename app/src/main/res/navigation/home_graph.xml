@@ -26,5 +26,6 @@
         android:id="@+id/navigation_profile"
         android:name="com.example.kurkotasks.view.home.ProfileFragment"
         android:label="@string/profile_fragment"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+    </fragment>
 </navigation>

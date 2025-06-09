@@ -1,10 +1,11 @@
 package com.example.kurkotasks.model
 
-import java.sql.Date
+import java.util.Date
 
 data class User(
-    val id: String,
-    val name: String,
-    val email: String,
-    val password: String,
+    val id: String = "",
+    val name: String = "",
+    val lastName: String = "",
+    val userName: String = "",
+    val bornDate: Date = Date()
 )

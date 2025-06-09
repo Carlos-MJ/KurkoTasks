@@ -15,7 +15,7 @@ class OnboardingActivity : AppCompatActivity(), FragmentCommunicator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_onboarding)
+
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

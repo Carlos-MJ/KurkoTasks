@@ -5,11 +5,18 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.kurkotasks.core.ResultWrapper
+import com.example.kurkotasks.network.UserRepository
 import com.google.firebase.auth.FirebaseAuth
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
+import javax.inject.Inject
 
-class LoginViewModel: ViewModel() {
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val repository: UserRepository
+): ViewModel() {
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState
@@ -23,16 +30,15 @@ class LoginViewModel: ViewModel() {
     fun requestSignIn(email: String, password: String) {
         _loaderState.value = true
         viewModelScope.launch {
-            try {
-                val result = firebase.signInWithEmailAndPassword(email, password).await()
-                _loaderState.value = false
-
-                _sessionValid.value = result.user != null
-
-            } catch (e: Exception) {
-                _sessionValid.value = false
-                _loaderState.value = false
-                Log.e("Firebase", "Error en inicio de sesión: ${e.message}")
+            when (val result = repository.login(email, password)) {
+                is ResultWrapper.Success -> {
+                    _loaderState.value = false
+                    _sessionValid.value = true
+                }
+                is ResultWrapper.Error -> {
+                    _loaderState.value = false
+                    val errorMessage = result.exception.message
+                }
             }
         }
     }

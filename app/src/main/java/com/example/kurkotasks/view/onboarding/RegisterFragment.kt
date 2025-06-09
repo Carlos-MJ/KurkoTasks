@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view.home
+package com.example.kurkotasks.view.onboarding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,10 @@ import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentRegisterBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
-import com.example.kurkotasks.view.onboarding.OnboardingActivity
 import com.example.kurkotasks.viewModel.RegisterViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class RegisterFragment : Fragment() {
 
     private var _binding: FragmentRegisterBinding? = null
@@ -34,21 +34,13 @@ class RegisterFragment : Fragment() {
 
     private fun setupView() {
             binding.flecha.setOnClickListener {
-
-                //viewModel.requestSignUp(binding.email.text.toString(),
-                //binding.passwordTIET.text.toString())
                 findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
             }
 
         binding.btnBoton.setOnClickListener {
-        val email = binding.email.text.toString().trim()
-        val password = binding.passwordTIET.text.toString().trim()
-            val name = binding.nombreTIET.text.toString().trim()
 
-            if (name.isEmpty()) {
-                binding.nombreTIET.error = "El nombre es obligatorio"
-                return@setOnClickListener
-            }
+            val email = binding.email.text.toString().trim()
+            val password = binding.passwordTIET.text.toString().trim()
 
             if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 binding.correo.error = "Introduce un correo válido"
@@ -61,7 +53,6 @@ class RegisterFragment : Fragment() {
             }
 
         viewModel.requestSignUp(email, password)
-        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
 
         }
 
@@ -71,6 +62,11 @@ class RegisterFragment : Fragment() {
     private fun setupObservers() {
         viewModel.loaderState.observe(viewLifecycleOwner) { loaderState ->
             communicator.showLoader(loaderState)
+        }
+
+        viewModel.isUserCreted.observe(viewLifecycleOwner){userId ->
+            val action = RegisterFragmentDirections.actionRegisterFragmentToPersonalInfo(userId)
+            findNavController().navigate(action)
         }
     }
 

@@ -6,12 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.kurkotasks.databinding.FragmentProfileBinding
 import com.example.kurkotasks.R
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.utils.FragmentCommunicator
 import com.example.kurkotasks.view.home.viewModel.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 @AndroidEntryPoint
 class ProfileFragment : Fragment() {
@@ -19,6 +22,8 @@ class ProfileFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var communicator: FragmentCommunicator
     private val viewModel by viewModels<ProfileViewModel>()
+    val locale = Locale("es", "MX")
+    val dateFormat = SimpleDateFormat("dd 'de' MMMM 'de' yyyy", locale)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +38,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupView() {
         setupObservers()
+        viewModel.getUserInfo()
     }
 
     private fun setupObservers() {
@@ -46,10 +52,9 @@ class ProfileFragment : Fragment() {
 
     private fun updateUI(user: User){
         binding?.apply {
-            userNameLabel.text = user.name + " "
-            userNameLabel.text = user.name
-            emailTextView.text = user.email.toString()
-            passwordTextView.text = user.password.toString()
+            fullNameLabel.text = "${user.name} ${user.lastName}"
+            userNameLabel.text = user.userName
+            dateLabel.text = dateFormat.format(user.bornDate)
         }
     }
 

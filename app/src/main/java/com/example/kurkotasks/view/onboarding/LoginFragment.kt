@@ -1,8 +1,7 @@
-package com.example.kurkotasks.view.home
+package com.example.kurkotasks.view.onboarding
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,10 +13,11 @@ import androidx.fragment.app.Fragment
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentLoginBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
-import com.example.kurkotasks.view.onboarding.OnboardingActivity
+import com.example.kurkotasks.view.home.MainActivity
 import com.example.kurkotasks.viewModel.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null

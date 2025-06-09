@@ -6,8 +6,8 @@
     app:startDestination="@id/loginFragment">
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.kurkotasks.view.home.LoginFragment"
-        android:label="fragment_login"
+        android:name="com.example.kurkotasks.view.onboarding.LoginFragment"
+        android:label="@string/login_fragment"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
@@ -15,21 +15,25 @@
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.kurkotasks.view.home.RegisterFragment"
-        android:label="fragment_register"
+        android:name="com.example.kurkotasks.view.onboarding.RegisterFragment"
+        android:label="@string/register_fragment"
         tools:layout="@layout/fragment_register" >
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_personalInfo"
+            app:destination="@id/personalInfo" />
     </fragment>
     <fragment
         android:id="@+id/personalInfo"
         android:name="com.example.kurkotasks.view.onboarding.PersonalInfo"
-        android:label="fragment_personal_info"
-        tools:layout="@layout/fragment_personal_info" />
-    <fragment
-        android:id="@+id/profileFragment"
-        android:name="com.example.kurkotasks.view.home.ProfileFragment"
-        android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        android:label="@string/personal_info_fragment"
+        tools:layout="@layout/fragment_personal_info">
+
+        <argument
+            android:name="userId"
+            app:argType="string"/>
+
+    </fragment>
 </navigation>
