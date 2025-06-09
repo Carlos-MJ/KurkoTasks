@@ -1,4 +1,4 @@
-package com.example.kurkotasks.view.onboarding
+package com.example.kurkotasks.view.home
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -10,56 +10,77 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.kurkotasks.R
-import com.example.kurkotasks.databinding.FragmentPersonalInfoBinding
+import com.example.kurkotasks.databinding.FragmentUpdatePersonalInfoBinding
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.utils.FragmentCommunicator
 import com.example.kurkotasks.view.home.MainActivity
-import com.example.kurkotasks.viewModel.PersonalInfoViewModel
+import com.example.kurkotasks.viewModel.UpdatePersonalInfoViewModel
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-
+import java.util.UUID
+import com.example.kurkotasks.core.ResultWrapper
+import androidx.navigation.fragment.findNavController
+import com.example.kurkotasks.databinding.FragmentPersonalInfoBinding
+import com.example.kurkotasks.view.onboarding.OnboardingActivity
+import com.example.kurkotasks.view.onboarding.PersonalInfoArgs
 
 @AndroidEntryPoint
-class PersonalInfo : Fragment() {
-    private var _binding: FragmentPersonalInfoBinding? = null
+class UpdatePersonalInfoFragment : Fragment() {
+    private var _binding: FragmentUpdatePersonalInfoBinding? = null
     private val binding get() = _binding!!
     private lateinit var communicator: FragmentCommunicator
-    private val viewModel by viewModels<PersonalInfoViewModel>()
+    private val viewModel by viewModels<UpdatePersonalInfoViewModel>()
     val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
-        communicator = requireActivity() as OnboardingActivity
+        _binding = FragmentUpdatePersonalInfoBinding.inflate(inflater, container, false)
+        communicator = requireActivity() as MainActivity
         setupView()
         return binding.root
     }
 
     private fun setupView() {
         val userId = arguments?.let {
-            PersonalInfoArgs.fromBundle(it).userId
-        }
+            UpdatePersonalInfoFragmentArgs.fromBundle(it).userId
+        } ?: return
+
+        viewModel.getUserInfo(userId)
+
+            viewModel.userInfo.observe(viewLifecycleOwner) { user ->
+                binding.firstNameTelt.setText(user.name)
+                binding.secondNameTelt.setText(user.lastName)
+                binding.userNameTelt.setText(user.userName)
+                binding.dateUserTelt.setText(format.format(user.bornDate))
+            }
+
+
         binding.dateUserTelt.apply {
             isFocusable = false
             isClickable = true
         }
-        binding.btnPersonalInfo.setOnClickListener{
+
+        binding.btnUpdatepersonalInfo.setOnClickListener {
             Log.e("BOTON", "HA ENTRADO EN EL BOTON")
             if (userId != null) {
-                viewModel.createUserInfo(userId,
-                    binding.firstNameTelt.text.toString(),
-                    binding.secondNameTelt.text.toString(),
-                    binding.userNameTelt.text.toString(),
-                    format.parse(binding.dateUserTelt.text.toString()) ?: Date())
+                viewModel.updateUserInfo(userId, User(
+                    id = userId,
+                    name = binding.firstNameTelt.text.toString(),
+                    lastName = binding.secondNameTelt.text.toString(),
+                    userName = binding.userNameTelt.text.toString(),
+                    bornDate = format.parse(binding.dateUserTelt.text.toString()) ?: Date()
+                ))
             }
         }
+
         binding.dateUserTelt.setOnClickListener {
             val calendario = Calendar.getInstance()
             val year = calendario.get(Calendar.YEAR)
@@ -67,7 +88,6 @@ class PersonalInfo : Fragment() {
             val day = calendario.get(Calendar.DAY_OF_MONTH)
 
             val datePicker = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
-                // Ajusta el mes (+1 porque empieza en 0)
                 val fechaSeleccionada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year)
                 binding.dateUserTelt.setText(fechaSeleccionada)
             }, year, month, day)
@@ -78,16 +98,14 @@ class PersonalInfo : Fragment() {
         setupObservers()
     }
 
-
     private fun setupObservers(){
         viewModel.loaderState.observe(viewLifecycleOwner){
             communicator.showLoader(it)
         }
-        viewModel.operationSuccess.observe(viewLifecycleOwner){ isSuccess ->
-            if(isSuccess){
-                val intent = Intent(activity, MainActivity::class.java)
-                startActivity(intent)
-                activity?.finish()
+        viewModel.operationSuccess.observe(viewLifecycleOwner) { isSuccess ->
+            if (isSuccess) {
+                Log.d("Firestore", "Redirigiendo a ProfileInfoFragment")
+                findNavController().navigate(R.id.action_updatePersonalInfo_to_navigation_profile)
             }
         }
     }

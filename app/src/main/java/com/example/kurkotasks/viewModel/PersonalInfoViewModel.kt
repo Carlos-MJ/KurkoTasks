@@ -1,5 +1,6 @@
 package com.example.kurkotasks.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class PersonalInfoViewModel@Inject constructor(
+class PersonalInfoViewModel @Inject constructor(
     private val repository: UserRepository
 ): ViewModel() {
     private val _loaderState = MutableLiveData<Boolean>()
@@ -24,7 +25,7 @@ class PersonalInfoViewModel@Inject constructor(
     val operationSuccess: LiveData<Boolean>
         get() = _operationSuccess
 
-    fun createUserInfo(userId: String, name: String, lastName: String, userName: String, bornDate: java.util.Date) {
+    fun createUserInfo(userId: String, name: String, lastName: String, userName: String, bornDate: Date) {
         val user = User(id = userId, name, lastName, userName, bornDate)
         _loaderState.value = true
         viewModelScope.launch {

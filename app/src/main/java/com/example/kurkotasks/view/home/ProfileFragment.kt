@@ -66,6 +66,18 @@ class ProfileFragment : Fragment() {
 
             }
         }
+
+        binding.updateButton.setOnClickListener { // Cambia el ID del botón si es necesario
+            val userId = viewModel.userInfo.value?.id // Obtén el ID del usuario
+
+            if (userId != null) {
+                val action = ProfileFragmentDirections.actionNavigationProfileToUpdatePersonalInfoFragment(userId)
+                findNavController().navigate(action)
+            } else {
+                Log.e("Navigation", "No se pudo obtener el ID del usuario")
+            }
+        }
+
     }
 
 

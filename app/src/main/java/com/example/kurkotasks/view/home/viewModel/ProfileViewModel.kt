@@ -30,6 +30,10 @@ class ProfileViewModel @Inject constructor(
     val userDelete: LiveData<Boolean>
         get() = _userDelete
 
+    private val _navUpdate = MutableLiveData<Boolean>()
+    val navUpdate: LiveData<Boolean>
+        get() = _navUpdate
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String>
         get() = _errorMessage
@@ -37,6 +41,8 @@ class ProfileViewModel @Inject constructor(
     fun getUserInfo(){
         _loaderState.value = true
         viewModelScope.launch {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+                ?: return@launch
             when (val result = repository.getUser()) {
                 is ResultWrapper.Success -> {
                     _loaderState.value = false
