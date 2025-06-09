@@ -37,7 +37,7 @@ class PersonalInfo : Fragment() {
         _binding = FragmentPersonalInfoBinding.inflate(inflater, container, false)
         communicator = requireActivity() as OnboardingActivity
         setupView()
-        return inflater.inflate(R.layout.fragment_personal_info, container, false)
+        return binding.root
     }
 
     private fun setupView() {
