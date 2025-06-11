@@ -25,19 +25,14 @@ class UpdateTaskViewModel @Inject constructor(
     val operationSuccess: LiveData<Boolean>
         get() = _operationSuccess
 
-    fun updateTaskInfo(taskId: String, name: String, description: String, bornDate: Date) {
-        val task = Task(id = taskId, name = name, description = description, bornDate = bornDate)
-        _loaderState.value = true
+    fun updateTaskInfo(updatedTask: Task) { // ✅ Se recibe un Task completo, no strings separados
         viewModelScope.launch {
-            when (val result = repository.updateTask(task)) {
+            when (val result = repository.updateTask(updatedTask)) {
                 is ResultWrapper.Success -> {
-                    _loaderState.value = false
-                    _operationSuccess.value = true
+                    _operationSuccess.postValue(true) // ✅ Indica éxito
                 }
                 is ResultWrapper.Error -> {
-                    _loaderState.value = false
-                    val errorMessage = result.exception.message ?: "Error desconocido al actualizar tarea"
-                    Log.e("TaskViewModel", errorMessage)
+                    Log.e("TaskViewModel", "Error al actualizar tarea", result.exception)
                 }
             }
         }
