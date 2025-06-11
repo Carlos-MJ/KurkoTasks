@@ -9,6 +9,9 @@
         android:name="com.example.kurkotasks.view.home.NewTasksFragment"
         android:label="@string/addtask_fragment"
         tools:layout="@layout/fragment_new_tasks" >
+        <argument
+            android:name="taskId"
+            app:argType="string" />
         <action
             android:id="@+id/action_newTasksFragment_to_pendingTaskFragment"
             app:destination="@id/navigation_home" />
@@ -18,9 +21,15 @@
         android:name="com.example.kurkotasks.view.home.PendingTaskFragment"
         android:label="@string/home_fragment"
         tools:layout="@layout/fragment_pending_tasks" >
+        <argument
+            android:name="taskId"
+            app:argType="string"/>
         <action
             android:id="@+id/action_pendingTaskFragment_to_newTasksFragment"
             app:destination="@id/navigation_addtasks" />
+        <action
+            android:id="@+id/action_navigation_home_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
@@ -44,5 +53,40 @@
             android:id="@+id/action_updatePersonalInfo_to_navigation_profile"
             app:destination="@id/navigation_profile" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/taskDetailFragment"
+        android:name="com.example.kurkotasks.view.home.TaskDetailFragment"
+        android:label="fragment_task_detail"
+        tools:layout="@layout/fragment_task_detail" >
+        <argument
+            android:name="taskId"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_taskDetailFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_updateTaskFragment"
+            app:destination="@id/updateTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemTaskFragment"
+        android:name="com.example.kurkotasks.view.home.ItemTaskFragment"
+        android:label="fragment_item_task"
+        tools:layout="@layout/fragment_item_task" >
+        <action
+            android:id="@+id/action_itemTaskFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateTaskFragment"
+        android:name="com.example.kurkotasks.view.home.UpdateTaskFragment"
+        android:label="UpdateTaskFragment" >
+        <action
+            android:id="@+id/action_updateTaskFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+        <action
+            android:id="@+id/action_updateTaskFragment_to_navigation_home"
+            app:destination="@id/navigation_home" />
     </fragment>
 </navigation>

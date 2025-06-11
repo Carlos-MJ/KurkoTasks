@@ -8,7 +8,7 @@
     <item
         android:id="@+id/navigation_addtasks"
         android:icon="@drawable/add_task"
-        android:title="Forecast"/>
+        android:title="New Task"/>
 
     <item
         android:id="@+id/navigation_profile"

@@ -1,4 +1,4 @@
-package com.example.kurkotasks.viewModel
+package com.example.kurkotasks.view.home.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -6,45 +6,43 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kurkotasks.core.ResultWrapper
-import com.example.kurkotasks.network.UserRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.example.kurkotasks.model.Task
+import com.example.kurkotasks.model.User
+import com.example.kurkotasks.network.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.tasks.await
+import java.util.Date
+import java.util.UUID
 import javax.inject.Inject
 
+
 @HiltViewModel
-class LoginViewModel @Inject constructor(
-    private val repository: UserRepository,
-    private val firebaseAuth: FirebaseAuth
+class NewTasksViewModel @Inject constructor(
+    private val repository: TaskRepository
 ): ViewModel() {
     private val _loaderState = MutableLiveData<Boolean>()
     val loaderState: LiveData<Boolean>
         get() = _loaderState
 
-    private val _sessionValid = MutableLiveData<Boolean>()
-    val sessionValid: LiveData<Boolean>
-        get() = _sessionValid
+    private val _operationSuccess = MutableLiveData<Boolean>()
+    val operationSuccess: LiveData<Boolean>
+        get() = _operationSuccess
 
-    private val firebase = FirebaseAuth.getInstance()
-
-    fun requestSignIn(email: String, password: String) {
+    fun createTaskInfo(taskId: String, name: String, description: String, bornDate: Date) {
+        val task = Task(id = taskId, name, description, bornDate)
         _loaderState.value = true
         viewModelScope.launch {
-            when (val result = repository.login(email, password)) {
+            when (val result = repository.createTask(task)) {
                 is ResultWrapper.Success -> {
                     _loaderState.value = false
-                    _sessionValid.value = true
+                    _operationSuccess.value = true
                 }
+
                 is ResultWrapper.Error -> {
                     _loaderState.value = false
                     val errorMessage = result.exception.message
                 }
             }
         }
-    }
-
-    fun getTaskId(): String {
-        return firebaseAuth.currentUser?.uid ?: ""
     }
 }

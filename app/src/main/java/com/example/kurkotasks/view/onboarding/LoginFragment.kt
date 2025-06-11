@@ -2,6 +2,7 @@ package com.example.kurkotasks.view.onboarding
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -93,6 +94,8 @@ class LoginFragment : Fragment() {
                 val intent = Intent(requireActivity(), MainActivity::class.java)
                 startActivity(intent)
                 requireActivity().finish()
+                Log.d("Firestore", "Usuario eliminado exitosamente")
+
             } else {
                 Toast.makeText(activity, "Ingreso invalido", Toast.LENGTH_SHORT).show()
             }

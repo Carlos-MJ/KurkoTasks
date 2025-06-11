@@ -45,7 +45,7 @@ class ProfileFragment : Fragment() {
         viewModel.getUserInfo()
         binding.deleteButton.setOnClickListener {
             viewModel.userInfo.value?.let { user ->
-                viewModel.deleteUser(user.id) // Aquí pasamos el ID del usuario
+                viewModel.deleteUser(user.id)
             }
         }
     }
@@ -67,8 +67,8 @@ class ProfileFragment : Fragment() {
             }
         }
 
-        binding.updateButton.setOnClickListener { // Cambia el ID del botón si es necesario
-            val userId = viewModel.userInfo.value?.id // Obtén el ID del usuario
+        binding.updateButton.setOnClickListener {
+            val userId = viewModel.userInfo.value?.id
 
             if (userId != null) {
                 val action = ProfileFragmentDirections.actionNavigationProfileToUpdatePersonalInfoFragment(userId)

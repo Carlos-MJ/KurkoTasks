@@ -25,6 +25,7 @@ import java.util.Locale
 
 @AndroidEntryPoint
 class PersonalInfo : Fragment() {
+
     private var _binding: FragmentPersonalInfoBinding? = null
     private val binding get() = _binding!!
     private lateinit var communicator: FragmentCommunicator
