@@ -45,9 +45,6 @@ class NewTasksFragment : Fragment() {
     }
 
     private fun setupView(){
-        binding.imageIconFlecha.setOnClickListener {
-            findNavController().navigate(R.id.action_newTasksFragment_to_pendingTaskFragment)
-        }
 
         val taskId = UUID.randomUUID().toString()
 

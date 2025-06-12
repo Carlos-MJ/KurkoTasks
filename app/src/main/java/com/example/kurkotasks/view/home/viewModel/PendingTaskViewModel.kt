@@ -10,8 +10,6 @@ import com.example.kurkotasks.network.TaskRepository
 import kotlinx.coroutines.launch
 import com.example.kurkotasks.model.Task
 import com.example.kurkotasks.core.ResultWrapper
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 @HiltViewModel
 class PendingTaskViewModel @Inject constructor(
@@ -32,14 +30,14 @@ class PendingTaskViewModel @Inject constructor(
 
     fun loadTasks() {
         viewModelScope.launch {
-            _loaderState.postValue(true) // Indica que está cargando
+            _loaderState.postValue(true)
 
             when (val result = repository.getTaskList()) {
-                is ResultWrapper.Success -> _taskInfo.postValue(result.data) // Ya es una lista
-                is ResultWrapper.Error -> _taskInfo.postValue(emptyList()) // Manejo de error
+                is ResultWrapper.Success -> _taskInfo.postValue(result.data)
+                is ResultWrapper.Error -> _taskInfo.postValue(emptyList())
             }
 
-            _loaderState.postValue(false) // Termina la carga
+            _loaderState.postValue(false)
         }
     }
 }

@@ -4,14 +4,10 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.kurkotasks.core.ResultWrapper
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.network.UserRepository
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -46,7 +42,7 @@ class UpdatePersonalInfoViewModel @Inject constructor(
             .addOnSuccessListener { document ->
                 if (document.exists()) {
                     _loaderState.value = false
-                    _userInfo.value = document.toObject(User::class.java) // Extrae un User de Firestore
+                    _userInfo.value = document.toObject(User::class.java)
                 }
             }
             .addOnFailureListener { exception ->
@@ -54,7 +50,6 @@ class UpdatePersonalInfoViewModel @Inject constructor(
             }
     }
 
-    // Actualizar datos en Firestore
     fun updateUserInfo(userId: String, user: User) {
         _loaderState.value = false
         val userRef = FirebaseFirestore.getInstance().collection("Users").document(userId)
@@ -64,9 +59,7 @@ class UpdatePersonalInfoViewModel @Inject constructor(
             .addOnSuccessListener {
                 _loaderState.value = false
                 _operationSuccess.value = true
-
                 Log.d("Firestore", "Datos actualizados correctamente")
-                 // Indicar éxito en la actualización
             }
             .addOnFailureListener { exception ->
                 _loaderState.value = false

@@ -9,13 +9,10 @@ import androidx.fragment.app.viewModels
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentPersonalInfoBinding
-import com.example.kurkotasks.model.User
 import com.example.kurkotasks.utils.FragmentCommunicator
 import com.example.kurkotasks.view.home.MainActivity
 import com.example.kurkotasks.viewModel.PersonalInfoViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar

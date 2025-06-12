@@ -3,7 +3,6 @@ package com.example.kurkotasks.view.onboarding
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.ActivityOnboardingBinding
 import com.example.kurkotasks.utils.FragmentCommunicator
 import dagger.hilt.android.AndroidEntryPoint

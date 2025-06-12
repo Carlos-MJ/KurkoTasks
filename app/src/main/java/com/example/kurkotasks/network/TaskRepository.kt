@@ -1,15 +1,11 @@
 package com.example.kurkotasks.network
 
-import android.util.Log
 import com.example.kurkotasks.core.ResultWrapper
 import com.example.kurkotasks.core.safeCall
 import com.example.kurkotasks.model.Task
-import com.example.kurkotasks.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
-import retrofit2.HttpException
-import java.util.Date
 import javax.inject.Inject
 
 class TaskRepository @Inject constructor(

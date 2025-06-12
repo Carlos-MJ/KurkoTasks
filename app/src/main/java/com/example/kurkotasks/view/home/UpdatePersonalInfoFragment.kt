@@ -13,20 +13,14 @@ import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentUpdatePersonalInfoBinding
 import com.example.kurkotasks.model.User
 import com.example.kurkotasks.utils.FragmentCommunicator
-import com.example.kurkotasks.view.home.MainActivity
 import com.example.kurkotasks.viewModel.UpdatePersonalInfoViewModel
-import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
-import java.util.UUID
-import com.example.kurkotasks.core.ResultWrapper
 import androidx.navigation.fragment.findNavController
-import com.example.kurkotasks.databinding.FragmentPersonalInfoBinding
-import com.example.kurkotasks.view.onboarding.OnboardingActivity
-import com.example.kurkotasks.view.onboarding.PersonalInfoArgs
+
 
 @AndroidEntryPoint
 class UpdatePersonalInfoFragment : Fragment() {
@@ -36,12 +30,11 @@ class UpdatePersonalInfoFragment : Fragment() {
     private val viewModel by viewModels<UpdatePersonalInfoViewModel>()
     val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
         _binding = FragmentUpdatePersonalInfoBinding.inflate(inflater, container, false)
         communicator = requireActivity() as MainActivity
         setupView()

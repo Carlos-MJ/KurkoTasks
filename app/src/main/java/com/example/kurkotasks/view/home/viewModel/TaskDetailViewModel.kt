@@ -1,17 +1,14 @@
 package com.example.kurkotasks.view.home.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kurkotasks.core.ResultWrapper
 import com.example.kurkotasks.model.Task
-import com.example.kurkotasks.model.User
 import com.example.kurkotasks.network.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.Date
 import javax.inject.Inject
 
 
@@ -62,7 +59,7 @@ class TaskDetailViewModel @Inject constructor(
         viewModelScope.launch {
             when (val result = repository.deleteTask(taskId)) {
                 is ResultWrapper.Success -> {
-                    _taskList.value = _taskList.value?.filter { it.id != taskId } // ✅ Elimina solo la tarea específica de la lista
+                    _taskList.value = _taskList.value?.filter { it.id != taskId }
                     _loaderState.value = false
                 }
                 is ResultWrapper.Error -> {

@@ -1,18 +1,15 @@
 package com.example.kurkotasks.view.home.viewModel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.kurkotasks.core.ResultWrapper
 import com.example.kurkotasks.model.Task
-import com.example.kurkotasks.model.User
 import com.example.kurkotasks.network.TaskRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.util.Date
-import java.util.UUID
 import javax.inject.Inject
 
 

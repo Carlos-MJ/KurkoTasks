@@ -10,7 +10,6 @@ import com.example.kurkotasks.network.TaskRepository
 import com.example.kurkotasks.core.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,11 +24,11 @@ class UpdateTaskViewModel @Inject constructor(
     val operationSuccess: LiveData<Boolean>
         get() = _operationSuccess
 
-    fun updateTaskInfo(updatedTask: Task) { // ✅ Se recibe un Task completo, no strings separados
+    fun updateTaskInfo(updatedTask: Task) {
         viewModelScope.launch {
             when (val result = repository.updateTask(updatedTask)) {
                 is ResultWrapper.Success -> {
-                    _operationSuccess.postValue(true) // ✅ Indica éxito
+                    _operationSuccess.postValue(true)
                 }
                 is ResultWrapper.Error -> {
                     Log.e("TaskViewModel", "Error al actualizar tarea", result.exception)

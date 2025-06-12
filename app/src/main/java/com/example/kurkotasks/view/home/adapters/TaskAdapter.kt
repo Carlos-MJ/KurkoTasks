@@ -1,6 +1,5 @@
 package com.example.kurkotasks.view.home.adapters
 
-import android.content.Context
 import android.view.LayoutInflater
 import com.example.kurkotasks.model.Task
 import android.view.View
@@ -9,7 +8,6 @@ import android.widget.TextView
 import com.example.kurkotasks.R
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kurkotasks.databinding.FragmentItemTaskBinding
-import dagger.hilt.android.lifecycle.HiltViewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 

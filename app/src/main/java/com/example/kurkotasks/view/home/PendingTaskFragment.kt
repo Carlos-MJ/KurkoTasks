@@ -59,11 +59,8 @@ class PendingTaskFragment : Fragment() {
     }
 
 
-
     private fun setupView(){
-        binding.iconAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_navigation_home_to_taskDetailFragment)
-        }
+
     }
 
     private fun observeViewModel() {

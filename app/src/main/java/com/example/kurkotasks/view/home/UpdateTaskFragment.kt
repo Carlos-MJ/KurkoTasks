@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.kurkotasks.R
 import com.example.kurkotasks.databinding.FragmentUpdateTaskBinding
-import com.example.kurkotasks.model.Task
 import com.example.kurkotasks.view.home.viewModel.UpdateTaskViewModel
 import com.example.kurkotasks.view.home.viewModel.SharedTaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +25,7 @@ class UpdateTaskFragment : Fragment() {
     private var _binding: FragmentUpdateTaskBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<UpdateTaskViewModel>()
-    private val sharedViewModel: SharedTaskViewModel by activityViewModels() // ✅ Usamos ViewModel compartido
+    private val sharedViewModel: SharedTaskViewModel by activityViewModels()
     private val format = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
 
     override fun onCreateView(
@@ -39,7 +38,7 @@ class UpdateTaskFragment : Fragment() {
     }
 
     private fun setupView() {
-        sharedViewModel.selectedTask.observe(viewLifecycleOwner) { task -> // ✅ Usamos la tarea del ViewModel compartido
+        sharedViewModel.selectedTask.observe(viewLifecycleOwner) { task ->
             task?.let {
                 binding.nombreTIK.setText(it.name)
                 binding.descriptionTIK.setText(it.description)

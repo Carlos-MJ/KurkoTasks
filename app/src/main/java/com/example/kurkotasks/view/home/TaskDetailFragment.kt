@@ -16,6 +16,7 @@ import java.util.Locale
 import com.example.kurkotasks.view.home.viewModel.SharedTaskViewModel
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import android.text.method.ScrollingMovementMethod
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -34,9 +35,9 @@ class TaskDetailFragment : Fragment() {
 
         binding.deleteButton.setOnClickListener {
             sharedViewModel.selectedTask.value?.let { task ->
-                viewModel.deleteTask(task.id) // ✅ Envía el ID de la tarea específica
-                binding.deleteButton.visibility = View.GONE // ✅ Oculta el botón después de eliminar
-                findNavController().navigateUp() // ✅ Regresa al fragmento anterior
+                viewModel.deleteTask(task.id)
+                binding.deleteButton.visibility = View.GONE
+                findNavController().navigateUp()
             }
         }
 
